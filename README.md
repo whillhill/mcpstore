@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/whillhill-mcpstore-badge.png)](https://mseep.ai/app/whillhill-mcpstore)
+
 [中文](https://github.com/whillhill/mcpstore/blob/main/README_zh.md) | English
 
 # 🚀 McpStore - Comprehensive MCP Management Package
