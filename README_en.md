@@ -195,6 +195,78 @@ GET  /for_store/health
 ```
 For more, see API documentation: [Documentation](https://doc.mcpstore.wiki/)
 
+### Web Interface
+
+mcpstore provides a Vue.js-based visual management interface that allows you to conveniently manage MCP services, view tool lists, execute tool calls, and more through a browser.
+
+#### Start with Docker (Recommended)
+
+The easiest way is to use Docker Compose to start the complete service stack (including API backend and Web frontend):
+
+```bash
+# Start all services (API + Web + Docs + Wiki)
+cd docker
+./start-all.sh
+
+# Or start Web and API services separately
+cd docker/web && docker-compose up -d
+cd docker/api && docker-compose up -d
+```
+
+After startup, access:
+- **Web Interface**: http://localhost:5177
+- **API Service**: http://localhost:18200
+
+#### Local Development Mode
+
+If you need to run the Web interface in a local development environment:
+
+**1. Start API Backend**
+
+```bash
+# Method 1: Using CLI
+mcpstore run api
+
+# Method 2: Using Python
+python -c "from mcpstore import MCPStore; store = MCPStore.setup_store(); store.start_api_server(host='0.0.0.0', port=18200)"
+```
+
+**2. Start Web Frontend**
+
+```bash
+cd vue
+
+# Install dependencies (first time only)
+npm install
+
+# Start development server
+npm run dev
+
+# Or specify host mode
+npm run dev:local    # Local access only
+npm run dev:domain   # Allow LAN access
+```
+
+The Web interface will start at http://localhost:5177 and automatically connect to the local API service (http://localhost:18200).
+
+#### Production Deployment
+
+```bash
+cd vue
+
+# Build production version
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+Build artifacts are located in the `vue/dist` directory and can be deployed to any static file server (Nginx, Apache, etc.).
+
+#### Live Demo
+
+If you don't want to deploy locally, you can directly access the online demo: [https://web.mcpstore.wiki](https://web.mcpstore.wiki)
+
 
 ### Docker Deployment 
 

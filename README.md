@@ -193,6 +193,78 @@ GET  /for_store/health
 ```
 更多见接口文档： [详细文档](https://doc.mcpstore.wiki/)
 
+### Web 界面
+
+mcpstore 提供了基于 Vue.js 的可视化管理界面，可以通过浏览器方便地管理 MCP 服务、查看工具列表、执行工具调用等操作。
+
+#### 使用 Docker 启动（推荐）
+
+最简单的方式是使用 Docker Compose 启动完整的服务栈（包括 API 后端和 Web 前端）：
+
+```bash
+# 启动所有服务（API + Web + 文档 + Wiki）
+cd docker
+./start-all.sh
+
+# 或单独启动 Web 和 API 服务
+cd docker/web && docker-compose up -d
+cd docker/api && docker-compose up -d
+```
+
+启动后访问：
+- **Web 界面**: http://localhost:5177
+- **API 服务**: http://localhost:18200
+
+#### 本地开发模式
+
+如果需要在本地开发环境运行 Web 界面：
+
+**1. 启动 API 后端**
+
+```bash
+# 方式一：使用 CLI
+mcpstore run api
+
+# 方式二：使用 Python
+python -c "from mcpstore import MCPStore; store = MCPStore.setup_store(); store.start_api_server(host='0.0.0.0', port=18200)"
+```
+
+**2. 启动 Web 前端**
+
+```bash
+cd vue
+
+# 安装依赖（首次运行）
+npm install
+
+# 启动开发服务器
+npm run dev
+
+# 或指定主机模式
+npm run dev:local    # 仅本机访问
+npm run dev:domain   # 允许局域网访问
+```
+
+Web 界面将在 http://localhost:5177 启动，自动连接到本地 API 服务（http://localhost:18200）。
+
+#### 生产部署
+
+```bash
+cd vue
+
+# 构建生产版本
+npm run build
+
+# 预览生产构建
+npm run preview
+```
+
+构建产物位于 `vue/dist` 目录，可部署到任何静态文件服务器（Nginx、Apache 等）。
+
+#### 在线体验
+
+如果不想本地部署，可以直接访问在线演示：[https://web.mcpstore.wiki](https://web.mcpstore.wiki)
+
 
 ### docker部署 
 
