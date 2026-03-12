@@ -44,9 +44,10 @@ def __getattr__(name: str):
         })
         return globals()[name]
 
-    if name in ("APIResponse", "ErrorDetail", "ResponseMeta", "Pagination", "ResponseBuilder"):
+    if name in ("APIResponse", "ErrorDetail", "ResponseMeta", "Pagination", "ResponseBuilder", "timed_response"):
         from mcpstore.core.models.response import APIResponse, ErrorDetail, ResponseMeta, Pagination
         from mcpstore.core.models.response_builder import ResponseBuilder
+        from mcpstore.core.models.response_decorators import timed_response
 
         globals().update({
             "APIResponse": APIResponse,
@@ -54,6 +55,7 @@ def __getattr__(name: str):
             "ResponseMeta": ResponseMeta,
             "Pagination": Pagination,
             "ResponseBuilder": ResponseBuilder,
+            "timed_response": timed_response,
         })
         return globals()[name]
 
@@ -63,18 +65,42 @@ def __getattr__(name: str):
         globals()["ErrorCode"] = ErrorCode
         return ErrorCode
 
+    if name == "ClientIDGenerator":
+        from mcpstore.core.utils.id_generator import ClientIDGenerator
+
+        globals()["ClientIDGenerator"] = ClientIDGenerator
+        return ClientIDGenerator
+
+    if name == "PerspectiveResolver":
+        from mcpstore.utils.perspective_resolver import PerspectiveResolver
+
+        globals()["PerspectiveResolver"] = PerspectiveResolver
+        return PerspectiveResolver
+
     # Core exception classes
-    if name in ("MCPStoreException", "ServiceNotFoundException", "ToolExecutionError"):
+    if name in ("MCPStoreException", "ServiceNotFoundException", "ToolExecutionError", "ValidationException"):
         from mcpstore.core.exceptions import (
             MCPStoreException,
             ServiceNotFoundException,
             ToolExecutionError,
+            ValidationException,
         )
 
         globals().update({
             "MCPStoreException": MCPStoreException,
             "ServiceNotFoundException": ServiceNotFoundException,
             "ToolExecutionError": ToolExecutionError,
+            "ValidationException": ValidationException,
+        })
+        return globals()[name]
+
+    # Adapter common utilities
+    if name in ("call_tool_response_helper", "ToolCallView"):
+        from mcpstore.adapters.common import call_tool_response_helper, ToolCallView
+
+        globals().update({
+            "call_tool_response_helper": call_tool_response_helper,
+            "ToolCallView": ToolCallView,
         })
         return globals()[name]
 
@@ -119,15 +145,23 @@ __all__ = [
     "ToolExecutionRequest",
     "APIResponse",
     "ResponseBuilder",
+    "timed_response",
     "ErrorDetail",
     "ResponseMeta",
     "Pagination",
     "ErrorCode",
+    "ClientIDGenerator",
+    "PerspectiveResolver",
 
     # Exception Classes
     "MCPStoreException",
     "ServiceNotFoundException",
     "ToolExecutionError",
+    "ValidationException",
+
+    # Adapter Utilities
+    "call_tool_response_helper",
+    "ToolCallView",
 
     # Adapters
     "LangChainAdapter",

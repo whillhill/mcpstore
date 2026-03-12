@@ -384,7 +384,7 @@ class ToolExecutionMixin:
         self.session_manager.cleanup_expired_sessions()
 
         # 旧的监控任务已被废弃，无需停止
-        logger.info("Legacy monitoring tasks were already disabled")
+        logger.info("Previous monitoring tasks were already disabled")
 
         # 关闭所有客户端连接
         for name, client in self.clients.items():
@@ -404,7 +404,7 @@ class ToolExecutionMixin:
         logger.info("Restarting monitoring tasks with new configuration...")
 
         # 旧的监控任务已被废弃，无需停止
-        logger.info("Legacy monitoring tasks were already disabled")
+        logger.info("Previous monitoring tasks were already disabled")
 
         # 重新启动监控（现在由ServiceLifecycleManager处理）
         await self._start_monitoring()

@@ -202,7 +202,7 @@ class ResourceDecoratorMixin:
                     auth=auth,
                 )
                 obj = create_resource(fn)
-                # In legacy mode, standalone_resource always returns a component
+    # In compatibility mode, standalone_resource always returns a component
                 assert isinstance(obj, (Resource, ResourceTemplate))
                 if isinstance(obj, ResourceTemplate):
                     self.add_template(obj)

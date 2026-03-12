@@ -14,7 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from mcpstore.core.store import MCPStore
+from mcpstore import MCPStore
 from .api_dependencies import set_request_store, get_store
 from .api_exceptions import (
     mcpstore_exception_handler,
@@ -192,7 +192,7 @@ def create_app(
 
         返回所有可用的 API 文档链接
         """
-        from mcpstore.core.models import ResponseBuilder
+        from mcpstore import ResponseBuilder
 
         doc_prefix = url_prefix or ""
 
@@ -226,7 +226,7 @@ def create_app(
     @app.get("/health" if not url_prefix else f"{url_prefix}/health")
     async def health_check():
         """健康检查端点"""
-        from mcpstore.core.models import ResponseBuilder, ErrorCode
+        from mcpstore import ResponseBuilder, ErrorCode
 
         try:
             current_store = get_store()

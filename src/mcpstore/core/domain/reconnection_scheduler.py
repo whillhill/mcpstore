@@ -424,8 +424,7 @@ class ReconnectionScheduler:
             metadata: 服务元数据
         """
         try:
-            # 使用原始架构签名的方法
-            await self._registry.set_service_metadata_async_v2(agent_id, service_name, metadata)
+            await self._registry.set_service_metadata_async(agent_id, service_name, metadata)
         except Exception as e:
             logger.error(f"[RECONNECT] [ERROR] Failed to set service metadata {agent_id}:{service_name}: {e}")
 

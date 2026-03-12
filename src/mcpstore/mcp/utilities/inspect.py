@@ -5,10 +5,12 @@ from __future__ import annotations
 import importlib.metadata
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Literal, cast
+from typing import Any, Literal
 
+import mcpstore.mcp
 import pydantic_core
 
+from mcpstore.mcp import Client
 from mcpstore.mcp.server.server import MCPKit
 
 
@@ -94,7 +96,7 @@ class MCPStoreInfo:
     capabilities: dict[str, Any]
 
 
-async def inspect_mcpstore_v2(mcp: MCPKit[Any]) -> MCPStoreInfo:
+async def inspect_mcpstore(mcp: MCPKit[Any]) -> MCPStoreInfo:
     """Extract information from a MCPKit instance.
 
     Args:
@@ -230,11 +232,6 @@ async def inspect_mcpstore_v2(mcp: MCPKit[Any]) -> MCPStoreInfo:
     )
 
 
-async def inspect_mcpstore(mcp: MCPKit[Any]) -> MCPStoreInfo:
-    """Extract information from a MCPKit instance into a dataclass."""
-    return await inspect_mcpstore_v2(cast(MCPKit[Any], mcp))
-
-
 class InspectFormat(str, Enum):
     """Output format for inspect command."""
 
@@ -271,7 +268,7 @@ def format_mcpstore_info(info: MCPStoreInfo) -> bytes:
     return pydantic_core.to_json(result, indent=2)
 
 
-async def format_mcp_info(mcp: MCPStore[Any] | MCPStore1x) -> bytes:
+async def format_mcp_info(mcp: MCPKit[Any]) -> bytes:
     """Format server info as standard MCP protocol JSON.
 
     Uses Client to get the standard MCP protocol format with camelCase fields.
@@ -305,7 +302,7 @@ async def format_mcp_info(mcp: MCPStore[Any] | MCPStore1x) -> bytes:
 
 
 async def format_info(
-    mcp: MCPStore[Any] | MCPStore1x,
+    mcp: MCPKit[Any],
     format: InspectFormat | Literal["mcpstore", "mcp"],
     info: MCPStoreInfo | None = None,
 ) -> bytes:

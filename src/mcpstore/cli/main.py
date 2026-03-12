@@ -6,7 +6,6 @@ import sys
 
 import typer
 
-from .api.run import register_api_commands
 from .config.commands import register_config_commands
 from .mcp.commands import register_mcp_commands
 
@@ -37,6 +36,12 @@ def version():
         typer.echo(f" Failed to get version: {e}")
         raise typer.Exit(1)
 
+    banner = r"""
+    █▀▄▀█  ▄▀▀▄  █▀▀▄  ▄▀▀▀  ▀█▀  ▄▀▀▄  █▀▀▄  █▀▀
+    █ █ █  █     █▄▄▀  ▀▀▀▄   █   █  █  █▄▄▀  █▀▀
+    ▀   ▀  ▀▀▀▀  █     ▀▀▀    ▀    ▀▀   ▀  ▀  ▀▀▀
+    """
+    typer.echo(banner)
     typer.echo(f"MCPStore version: {__version__}")
 
 def _register_commands():
@@ -44,7 +49,6 @@ def _register_commands():
     global _commands_registered
     if _commands_registered:
         return
-    register_api_commands(app)
     register_config_commands(app)
     register_mcp_commands(app)
     _commands_registered = True

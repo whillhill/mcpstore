@@ -120,7 +120,7 @@ class FileSystemSource(Source):
 
         # If entrypoint is specified, use it
         if self.entrypoint:
-            # Handle module:object syntax (though this is legacy)
+        # Handle module:object syntax (kept for older configurations)
             if ":" in self.entrypoint:
                 module_name, object_name = self.entrypoint.split(":", 1)
                 try:

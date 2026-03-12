@@ -48,7 +48,7 @@ def get_route_info():
 @router.get("/", tags=["System"])
 async def api_root():
     """API root path - system information"""
-    from mcpstore.core.models import ResponseBuilder
+    from mcpstore import ResponseBuilder
     
     route_info = get_route_info()
     

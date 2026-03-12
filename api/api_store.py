@@ -7,7 +7,7 @@ from typing import Optional, Dict, Any, List, Union
 
 from fastapi import APIRouter, Request, Query, Body
 
-from mcpstore.core.models import (
+from mcpstore import (
     APIResponse,
     ErrorCode,
     ResponseBuilder,
@@ -371,7 +371,7 @@ async def store_reset_service(request: Request):
         raw = identifier or client_id
         if raw:
             try:
-                from mcpstore.core.utils.id_generator import ClientIDGenerator
+                from mcpstore import ClientIDGenerator
 
                 if ClientIDGenerator.is_deterministic_format(raw):
                     parsed = ClientIDGenerator.parse_client_id(raw)
@@ -392,7 +392,7 @@ async def store_reset_service(request: Request):
 
     # 规范服务名到 Store 视角的全局名（兼容本地名/agent:service 格式）
     try:
-        from mcpstore.utils.perspective_resolver import PerspectiveResolver
+        from mcpstore import PerspectiveResolver
 
         resolver = PerspectiveResolver()
         name_res = resolver.normalize_service_name(

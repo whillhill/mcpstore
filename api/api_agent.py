@@ -8,11 +8,12 @@ from typing import Dict, Any, Union, List, Optional
 
 from fastapi import APIRouter, Request, Query
 
-from mcpstore.core.models import (
+from mcpstore import (
     APIResponse,
     ErrorCode,
     ResponseBuilder,
     timed_response,
+    call_tool_response_helper,
 )
 from .api_decorators import validate_agent_id
 from .api_dependencies import get_store
@@ -397,7 +398,6 @@ async def agent_call_tool(agent_id: str, request: SimpleToolExecutionRequest):
     )
     # 将 MCPStore CallToolResult 标准化为可序列化的视图
     try:
-        from mcpstore.adapters.common import call_tool_response_helper
         result_view = call_tool_response_helper(result).model_dump()
     except Exception as e:
         # 出现异常时返回原始结果的字符串化内容，避免序列化失败

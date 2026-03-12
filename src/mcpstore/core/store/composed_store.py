@@ -2,7 +2,6 @@
 Composed MCPStore class
 Defines the final MCPStore by composing mixins and BaseMCPStore in one place
 """
-from .api_server import APIServerMixin
 from .base_store import BaseMCPStore
 from .config_export_mixin import ConfigExportMixin
 from .config_management import ConfigManagementMixin
@@ -18,7 +17,6 @@ class MCPStore(
     ToolOperationsMixin,
     ConfigManagementMixin,
     DataSpaceManagerMixin,
-    APIServerMixin,
     ContextFactoryMixin,
     SetupMixin,
     ConfigExportMixin,
@@ -26,4 +24,3 @@ class MCPStore(
 ):
     """Final composed Store class"""
     pass
-

@@ -30,15 +30,14 @@ To compose with existing `@asynccontextmanager` lifespans, wrap them explicitly:
     from mcpstore.mcp.server.lifespan import lifespan, ContextManagerLifespan
 
     @asynccontextmanager
-    async def legacy_lifespan(server):
-        yield {"legacy": True}
+    async def wrapped_lifespan(server):
+        yield {"wrapped": True}
 
     @lifespan
     async def new_lifespan(server):
         yield {"new": True}
 
-    # Wrap the legacy lifespan explicitly
-    combined = ContextManagerLifespan(legacy_lifespan) | new_lifespan
+    combined = ContextManagerLifespan(wrapped_lifespan) | new_lifespan
     ```
 """
 

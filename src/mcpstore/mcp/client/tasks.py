@@ -372,7 +372,7 @@ class ToolTask(Task["CallToolResult"]):
                     self._tool_name, raw_result, raise_on_error=True
                 )
             else:
-                # Legacy ToolResult format - convert to MCP type
+                # Older ToolResult format - convert to MCP type
                 if hasattr(raw_result, "content") and hasattr(
                     raw_result, "structured_content"
                 ):

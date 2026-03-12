@@ -5,15 +5,26 @@ Provides adapters for various AI frameworks, facilitating integration of MCPStor
 into different AI Agent frameworks.
 """
 
-from .autogen_adapter import AutoGenAdapter
-from .crewai_adapter import CrewAIAdapter
-# ===== Direct export of all adapters =====
-from .langchain_adapter import LangChainAdapter
-from .llamaindex_adapter import LlamaIndexAdapter
-from .openai_adapter import OpenAIAdapter
-from .semantic_kernel_adapter import SemanticKernelAdapter
 
-# ===== Public exports =====
+def __getattr__(name: str):
+    """Lazy-load adapters on first access to avoid importing optional dependencies eagerly."""
+    _mapping = {
+        "LangChainAdapter": ".langchain_adapter",
+        "OpenAIAdapter": ".openai_adapter",
+        "AutoGenAdapter": ".autogen_adapter",
+        "LlamaIndexAdapter": ".llamaindex_adapter",
+        "CrewAIAdapter": ".crewai_adapter",
+        "SemanticKernelAdapter": ".semantic_kernel_adapter",
+    }
+    if name in _mapping:
+        import importlib
+        module = importlib.import_module(_mapping[name], package=__name__)
+        cls = getattr(module, name)
+        globals()[name] = cls
+        return cls
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+
+
 __all__ = [
     "LangChainAdapter",
     "OpenAIAdapter",

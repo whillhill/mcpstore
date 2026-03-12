@@ -11,7 +11,7 @@ from typing import Optional, List
 from fastapi import HTTPException
 from pydantic import ValidationError
 
-from mcpstore.core.models import APIResponse
+from mcpstore import APIResponse
 # 导入统一的异常处理系统
 from .api_exceptions import (
     MCPStoreException, ValidationException, ErrorCode,

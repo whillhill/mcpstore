@@ -5,7 +5,7 @@ MCPStore API 服务 - 改进版
 
 import logging
 
-from mcpstore.config.config import LoggingConfig
+from mcpstore import LoggingConfig
 # 导入应用工厂
 from .api_app import create_app
 

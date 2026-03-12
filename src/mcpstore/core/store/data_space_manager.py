@@ -103,8 +103,11 @@ class DataSpaceManagerMixin:
                 logger.warning(f"Agent {agent_id} level does not support full registration")
                 return False
 
-    async def add_service(self, service_names: List[str], agent_id: Optional[str] = None) -> bool:
-        """异步版本的add_service方法"""
+    async def add_service(self, service_names: Optional[List[str]] = None, agent_id: Optional[str] = None, **kwargs) -> bool:
+        if service_names is None:
+            service_names = kwargs.get("service_names")
+        if not isinstance(service_names, list):
+            return False
         return await self._add_service(service_names, agent_id)
 
 

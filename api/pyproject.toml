@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcpstore-api-mini"
+version = "0.1.0"
+description = "Standalone mini backend for MCPStore"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcpstore>=1.5.18",
+    "fastapi>=0.110",
+    "uvicorn>=0.30",
+]
+
+[project.scripts]
+mcpstore-api-mini = "api.runner:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["api"]

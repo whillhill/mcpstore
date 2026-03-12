@@ -2,7 +2,7 @@
 Core Registry Module - 服务注册管理模块
 
 本模块提供服务注册管理的核心功能。
-Legacy 管理器（StateManager, PersistenceManager, CacheManager）已废弃，
+旧管理器（StateManager, PersistenceManager, CacheManager）已废弃，
 功能已迁移到 core/cache/ 目录。
 
 模块结构：
@@ -65,11 +65,11 @@ __all__ = [
 
 # 模块版本和状态
 __version__ = "2.1.0"
-__status__ = "已清理 Legacy 代码"
+__status__ = "已清理旧接口代码"
 
 # 模块信息
 __author__ = "Core Registry Refactoring Team"
-__description__ = "服务注册管理模块（已清理 Legacy 代码）"
+__description__ = "服务注册管理模块（已清理旧接口代码）"
 __all_managers__ = [
     'SessionManager',
     'ToolManager',
@@ -84,6 +84,6 @@ def get_module_info():
         "status": __status__,
         "active_managers": len(__all_managers__) + 1,
         "available_managers": __all_managers__ + ["ServiceRegistry"],
-        "removed_legacy": ["StateManager", "PersistenceManager", "CacheManager", "ManagerFactory", "ManagerCoordinator"],
-        "migration_note": "Legacy 管理器功能已迁移到 core/cache/ 目录"
+        "removed_managers": ["StateManager", "PersistenceManager", "CacheManager", "ManagerFactory", "ManagerCoordinator"],
+        "migration_note": "旧管理器功能已迁移到 core/cache/ 目录"
     }

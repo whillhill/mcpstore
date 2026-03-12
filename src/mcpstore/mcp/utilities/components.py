@@ -26,7 +26,7 @@ class MCPStoreMeta(TypedDict, total=False):
 def get_mcpstore_metadata(meta: dict[str, Any] | None) -> MCPStoreMeta:
     """Extract MCPStore metadata from a component's meta dict.
 
-    Handles both the current `mcpstore` namespace and the legacy `_mcpstore`
+    Handles both the current `mcpstore` namespace and the historical `_mcpstore`
     namespace for compatibility with older MCPStore servers.
     """
     if not meta:

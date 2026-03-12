@@ -59,10 +59,10 @@ def _parse_key_version(key_suffix: str) -> tuple[str, str | None]:
 
     Uses rsplit to split on the LAST @ which is always the version delimiter.
     Falls back to treating the whole string as the name if @ is not present
-    (for backwards compatibility with legacy task keys).
+    (for backwards compatibility with older task keys).
     """
     if "@" not in key_suffix:
-        # Legacy key without version sentinel - treat as unversioned
+    # Older key without version sentinel - treat as unversioned
         return key_suffix, None
     name_or_uri, version = key_suffix.rsplit("@", 1)
     return name_or_uri, version if version else None

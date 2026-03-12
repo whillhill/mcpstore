@@ -138,7 +138,7 @@ def transform_context_annotations(fn: Callable[..., Any]) -> Callable[..., Any]:
     Transforms ALL params typed as Context to use Docket's DI system,
     unless they already have a Dependency-based default (like CurrentContext()).
 
-    This unifies the legacy type annotation DI with Docket's Depends() system,
+    This unifies the previous type annotation DI with Docket's Depends() system,
     allowing both patterns to work through a single resolution path.
 
     Note: Only POSITIONAL_OR_KEYWORD parameters are reordered (params with defaults
@@ -443,7 +443,7 @@ def without_injected_parameters(fn: Callable[..., Any]) -> Callable[..., Any]:
     Context injection when called.
 
     Handles:
-    - Legacy Context injection (always works)
+    - Context injection via type annotations (always works)
     - Depends() injection (always works - uses docket or vendored DI engine)
 
     Args:

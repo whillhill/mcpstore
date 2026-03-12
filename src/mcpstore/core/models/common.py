@@ -12,7 +12,7 @@ Unified response model import center.
 
 # Error code enumeration
 
-# ==================== Compatibility exports (some legacy models) ====================
+# ==================== Compatibility exports (some older models) ====================
 from typing import Optional, Any, List, Dict, Generic, TypeVar
 
 from pydantic import BaseModel, Field
